@@ -1,8 +1,9 @@
 //Appl de la library express framework
 const express = require('express');
-
+const bodyParser = require('body-parser');
 //Utilsation du framework express via app
 const app = express();
+
 
 // //Reponse qui indique que la requete est reçue puis passe a l'execution
 // app.use((req,res,next)=>{
@@ -31,6 +32,15 @@ const app = express();
         res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
         next();
     });
+
+app.use(bodyParser.json());
+
+app.post('/api/stuff',(req,res,next)=>{
+    console.log(req.body);
+    res.status(201).json({
+        message:'Objet crée !'
+    });
+});
 //Premiere route pour notre api
 app.use('/api/stuff',(req,res,next)=>{
     const stuff = [
